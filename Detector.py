@@ -18,6 +18,7 @@ class Detector:
 
         print(len(self.classesList), len(self.colorList))
 
+
     def downloadModel(self, modelURL):
 
         fileName = os.path.basename(modelURL)
@@ -29,12 +30,14 @@ class Detector:
 
         get_file(fname=fileName, origin=modelURL, cache_dir=self.cacheDir, cache_subdir="checkpoints", extract=True)
 
+
     def loadModel(self):
         print("Loading Model " + self.modelName)
         tf.keras.backend.clear_session()
         self.model = tf.saved_model.load(os.path.join(self.cacheDir, "checkpoints", self.modelName, "saved_model"))
 
         print("Model " + self.modelName + " loaded successfully...")
+
 
     def createBoundimgBox(self, image, threshold = 0.5):
         inputTensor = cv2.cvtColor(image.copy(), cv2.COLOR_BGR2RGB)
@@ -80,7 +83,7 @@ class Detector:
 
                 cv2.line(image, (xmax, ymin), (xmax - lineWidth, ymin), classColor, thickness=5)
                 cv2.line(image, (xmax, ymin), (xmax, ymin + lineWidth), classColor, thickness=5)
-###################################################################################################
+                ###################################################################################################
                 cv2.line(image, (xmin, ymax), (xmin + lineWidth, ymax), classColor, thickness=5)
                 cv2.line(image, (xmin, ymax), (xmin, ymax - lineWidth), classColor, thickness=5)
 
